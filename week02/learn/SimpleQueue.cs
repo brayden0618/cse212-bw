@@ -10,7 +10,7 @@
         queue.Enqueue(100);
         var value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found:
+        // Defect(s) Found: The Dequeue method is using index 1 instead of 0, which will cause an off-by-one error.
 
         Console.WriteLine("------------");
 
@@ -28,7 +28,7 @@
         Console.WriteLine(value);
         value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found: 
+        // Defect(s) Found: The Enqueue method is inserting at index 0 instead of adding to the end, which will cause the queue to behave like a stack.
 
         Console.WriteLine("------------");
 
@@ -41,10 +41,10 @@
             queue.Dequeue();
             Console.WriteLine("Oops ... This shouldn't have worked.");
         }
-        catch (IndexOutOfRangeException) {
+        catch (InvalidOperationException) {
             Console.WriteLine("I got the exception as expected.");
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: None 
     }
 
     private readonly List<int> _queue = new();
@@ -54,20 +54,20 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
     /// Dequeue the next value and return it
     /// </summary>
-    /// <exception cref="IndexOutOfRangeException">If queue is empty</exception>
+    /// <exception cref="InvalidOperationException">If queue is empty</exception>
     /// <returns>First integer in the queue</returns>
     private int Dequeue() {
-        if (_queue.Count <= 0)
-            throw new IndexOutOfRangeException();
+        if (_queue.Count == 0)
+            throw new InvalidOperationException("Queue is empty");
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
