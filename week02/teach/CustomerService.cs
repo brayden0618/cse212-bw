@@ -1,8 +1,4 @@
-﻿/// <summary>
-/// Maintain a Customer Service Queue.  Allows new customers to be 
-/// added and allows customers to be serviced.
-/// </summary>
-public class CustomerService {
+﻿public class CustomerService {
     public static void Run() {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
@@ -11,18 +7,24 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Create a customer service service queue with a size of 0
+        // Expected Result: The maximum queue size should be set to 10
         Console.WriteLine("Test 1");
+        var service = new CustomerService(0);
+        Console.WriteLine(service);
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Create a customer service queue and add a customer to the queue
+        // Expected Result: The customer should be added to the queue
         Console.WriteLine("Test 2");
+
+        var service2 = new CustomerService(4);
+        service2.AddNewCustomer();
+        service2.ServeCustomer();
 
         // Defect(s) Found: 
 
